@@ -1,0 +1,15 @@
+openapi: 3.0.0
+info:
+  title: awesome-example-project.v1.yaml
+  version: '1.0'
+  description: ec example api
+servers: []
+paths:
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      in: query
+      scheme: bearer
+      description: ''
+      bearerFormat: JWT
