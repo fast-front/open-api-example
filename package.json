@@ -6,9 +6,9 @@
   "main": "",
   "scripts": {
     "doc": "npx redoc-cli bundle awesome-example-project.v1.yaml -o ./doc-awesome-example-project-api.html",
-    "gen:dart": "API=owner LANG=dart node scripts/open-api-generator.js",
-    "gen:ts": "API=management LANG=ts node scripts/open-api-generator.js",
-    "gen:php": "API=owner LANG=php node scripts/open-api-generator.js",
+    "gen:dart": "LANG=dart node scripts/open-api-generator.js",
+    "gen:ts": "LANG=ts node scripts/open-api-generator.js",
+    "gen:php":  "LANG=php node scripts/open-api-generator.js",
     "watch:ts": "npm-watch gen:management:ts",
     "watch:dart": "npm-watch gen:owner:dart"
   },

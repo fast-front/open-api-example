@@ -3,13 +3,38 @@ info:
   title: awesome-example-project.v1.yaml
   version: '1.0'
   description: ec example api
-servers: []
+servers:
+  - url: 'http://localhost:4040'
+    description: ''
 paths:
+  /recommends:
+    get:
+      summary: おすすめ商品取得
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendsResponse'
+      operationId: get-recommends
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      in: query
-      scheme: bearer
-      description: ''
-      bearerFormat: JWT
+  schemas:
+    Product:
+      title: Product
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        price:
+          type: integer
+        description:
+          type: string
+    RecommendsResponse:
+      title: RecommendsResponse
+      type: array
+      items:
+        $ref: '#/components/schemas/Product'
