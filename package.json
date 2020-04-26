@@ -8,7 +8,7 @@
     "doc": "npx redoc-cli bundle awesome-example-project.v1.yaml -o ./doc-awesome-example-project-api.html",
     "gen:dart": "LANG=dart node scripts/open-api-generator.js",
     "gen:ts": "LANG=ts node scripts/open-api-generator.js",
-    "gen:php":  "LANG=php node scripts/open-api-generator.js",
+    "gen:php": "LANG=php node scripts/open-api-generator.js",
     "watch:ts": "npm-watch gen:management:ts",
     "watch:dart": "npm-watch gen:owner:dart"
   },
@@ -30,7 +30,7 @@
     "@babel/core": "^7.8.3",
     "@babel/node": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
-    "@openapitools/openapi-generator-cli": "^1.0.10-4.2.3",
+    "@openapitools/openapi-generator-cli": "^1.0.12-4.3.0",
     "dotenv": "^8.2.0",
     "npm-watch": "^0.6.0",
     "prettier": "^1.19.1",

@@ -1,16 +1,16 @@
 const shell = require('shelljs')
 require('dotenv').config()
 
-const inputYaml = process.env.INPUT || 'shoken-owner-app.v1.yaml'
+const inputYaml = process.env.INPUT || 'awesome-example-project-api.v1.yaml'
 
 const langMap = {
   ts: 'typescript-axios',
-  dart: 'dart -DbrowserClient=false',
+  dart: 'dart',
   php: 'php-laravel',
 }
 
 const outDirMap = {
-    php: `${__dirname}/generated-sources/server/owner`,
+    php: `${__dirname}/generated-sources/server`,
     dart: process.env.OUT_DIR_DART,
     ts: process.env.OUT_DIR_TS,
 }

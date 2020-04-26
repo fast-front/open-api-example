@@ -18,7 +18,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RecommendsResponse'
+              examples:
+                example-1:
+                  value:
+                    - id: 0
+                      name: Awesome Product Name
+                      price: 100000
+                      description: Lorem ipsum
+                      imageUrl: 'https://source.unsplash.com/random/640x640'
       operationId: get-recommends
+      parameters: []
+  /me:
+    get:
+      summary: アカウント情報取得
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeRespons'
+      operationId: get-me-favorites
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: test
+    parameters: []
+  /me/cart:
+    get:
+      summary: カート情報取得
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeCartResponse'
+      operationId: get-me-cart
+  /login:
+    post:
+      summary: ログイン
+      operationId: login
+      responses:
+        '200':
+          description: OK
 components:
   schemas:
     Product:
@@ -33,8 +79,51 @@ components:
           type: integer
         description:
           type: string
+        imageUrl:
+          type: string
     RecommendsResponse:
       title: RecommendsResponse
       type: array
       items:
         $ref: '#/components/schemas/Product'
+    Account:
+      title: Account
+      type: object
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        postalCode:
+          type: string
+        phoneNumber:
+          type: string
+        prefectureId:
+          type: integer
+        favoriteProductIds:
+          type: array
+          items:
+            type: integer
+    MeRespons:
+      title: MeRespons
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/Account'
+    MeCartResponse:
+      title: MeCartResponse
+      type: array
+      items:
+        $ref: '#/components/schemas/CartItem'
+    CartItem:
+      title: CartItem
+      type: array
+      items:
+        type: object
+        properties:
+          product:
+            $ref: '#/components/schemas/Product'
+          amount:
+            type: integer
