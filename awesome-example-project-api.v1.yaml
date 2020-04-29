@@ -26,6 +26,11 @@ paths:
                       price: 100000
                       description: Lorem ipsum
                       imageUrl: 'https://source.unsplash.com/random/640x640'
+                    - id: 1
+                      name: Awesome Product Name
+                      price: 50000
+                      description: Lorem ipsum
+                      imageUrl: 'https://source.unsplash.com/random/640x640'
       operationId: get-recommends
       parameters: []
   /me:
@@ -38,13 +43,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MeRespons'
-      operationId: get-me-favorites
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: test
+                $ref: '#/components/schemas/MeResponse'
+      operationId: get-me
+      parameters: []
     parameters: []
   /me/cart:
     get:
@@ -106,12 +107,8 @@ components:
           type: array
           items:
             type: integer
-    MeRespons:
-      title: MeRespons
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/Account'
+    MeResponse:
+      $ref: '#/components/schemas/Account'
     MeCartResponse:
       title: MeCartResponse
       type: array

@@ -6,33 +6,13 @@ $ docker-compose up -d
 
 # モックサーバアドレス
 
-## オーナーアプリ
-
 ```
-http://localhost:4010
+http://localhost:4040
 ```
 
-## 入居者アプリ
+### ドキュメント生成
 ```
-http://localhost:4011
-```
-
-## 管理画面
-```
-http://localhost:4012
-```
-
-# Open API ドキュメント生成
-
-### オーナー api
-```
-$ npm run doc:owner
-```
-
-### 入居者 api
-
-```
-$ npm run doc:resident
+$ npm run doc
 ```
 
 # Open API コードジェネレータ
@@ -65,31 +45,5 @@ stopLightを起動し、一番下部にある 「Open Existing Folder」 メニ�
 ### owner api dart
 
 ```
-$ npm run gen:owner:dart
-```
-
-### resident api dart
-```
-$ npm run gen:resident:dart
-```
-
-### management console api ts
-```
-$ npm run gen:management:ts
-```
-
-## スキーマファイルを監視して自動生成
-
-### owner api dart
-```
-$ npm run watch:owner:dart
-```
-
-### resident api dart
-```
-$ npm run watch:resident:dart
-```
-### management console api ts
-```
-$ npm run watch:management:ts
+npm run gen:dart
 ```
