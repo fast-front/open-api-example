@@ -3,6 +3,8 @@ info:
   title: awesome-example-project.v1.yaml
   version: '1.0'
   description: ec example api
+  contact:
+    name: FastFront
 servers:
   - url: 'http://localhost:4040'
     description: ''
@@ -24,13 +26,11 @@ paths:
                     - id: 0
                       name: Awesome Product Name
                       price: 100000
-                      description: Lorem ipsum
-                      imageUrl: 'https://source.unsplash.com/random/640x640'
+                      imageUrl: 'https://source.unsplash.com/random/640x640?id=0'
                     - id: 1
                       name: Awesome Product Name
                       price: 50000
-                      description: Lorem ipsum
-                      imageUrl: 'https://source.unsplash.com/random/640x640'
+                      imageUrl: 'https://source.unsplash.com/random/640x640?id=1'
       operationId: get-recommends
       parameters: []
   /me:
@@ -47,7 +47,22 @@ paths:
       operationId: get-me
       parameters: []
     parameters: []
-  /me/cart:
+    put:
+      summary: アカウント情報更新
+      operationId: update-me
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+  /cart:
     get:
       summary: カート情報取得
       tags: []
@@ -57,12 +72,108 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MeCartResponse'
-      operationId: get-me-cart
+                $ref: '#/components/schemas/MyCartResponse'
+              examples:
+                example-1:
+                  value:
+                    - product:
+                        id: 0
+                        name: Awesome Example Product
+                        price: 100000
+                        description: string
+                        imageUrlList:
+                          - string
+                      amount: 0
+      operationId: get-my-cart
+    parameters: []
+    post:
+      summary: カート商品追加
+      operationId: add-to-cart
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartItem'
+              examples:
+                example-1:
+                  value:
+                    product:
+                      id: 0
+                      imageUrl: 'https://source.unsplash.com/random/640x640?id=1'
+                      price: 100000
+                      name: Awesome Product Name
+                    amount: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: integer
   /login:
     post:
       summary: ログイン
       operationId: login
+      responses:
+        '200':
+          description: OK
+  '/product/{id}':
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: 商品ID
+    get:
+      summary: 商品詳細取得
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              examples:
+                example-1:
+                  value:
+                    id: 0
+                    name: Awesome Product Name
+                    price: 100000
+                    description: Lorem ipsum.Lorem ipsum.Lorem ipsum.Lorem ipsum.Lorem ipsum.
+                    imageUrlList:
+                      - 'https://source.unsplash.com/random/640x640?id=0'
+                      - 'https://source.unsplash.com/random/640x640?id=1'
+                      - 'https://source.unsplash.com/random/640x640?id=2'
+      operationId: get-product
+  '/cart/{productId}':
+    parameters:
+      - schema:
+          type: integer
+        name: productId
+        in: path
+        required: true
+        description: 商品ID
+    put:
+      summary: カート数量変更
+      operationId: change-amount
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartItem'
+      description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: integer
+    delete:
+      summary: カート商品削除
+      operationId: delete-from-cart
       responses:
         '200':
           description: OK
@@ -71,6 +182,7 @@ components:
     Product:
       title: Product
       type: object
+      x-examples: {}
       properties:
         id:
           type: integer
@@ -80,13 +192,21 @@ components:
           type: integer
         description:
           type: string
-        imageUrl:
-          type: string
+        imageUrlList:
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - name
+        - price
+        - description
+        - imageUrlList
     RecommendsResponse:
       title: RecommendsResponse
       type: array
       items:
-        $ref: '#/components/schemas/Product'
+        $ref: '#/components/schemas/ProductIndex'
     Account:
       title: Account
       type: object
@@ -109,18 +229,28 @@ components:
             type: integer
     MeResponse:
       $ref: '#/components/schemas/Account'
-    MeCartResponse:
+    MyCartResponse:
       title: MeCartResponse
       type: array
       items:
         $ref: '#/components/schemas/CartItem'
     CartItem:
       title: CartItem
-      type: array
-      items:
-        type: object
-        properties:
-          product:
-            $ref: '#/components/schemas/Product'
-          amount:
-            type: integer
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/ProductIndex'
+        amount:
+          type: integer
+    ProductIndex:
+      title: ProductIndex
+      type: object
+      properties:
+        id:
+          type: integer
+        imageUrl:
+          type: string
+        price:
+          type: integer
+        name:
+          type: string
